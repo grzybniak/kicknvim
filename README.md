@@ -74,13 +74,14 @@ You can redefine keybindings, use your own emulator, or point to another version
 
 Open your `_k.asm` file. Make sure it triggers the filetype `kickass`.
 
- - Press `<leader>ka` to assemble it using KickAssembler.
- - Press `<leader>kr` to run the output `.prg` in VICE (x64).
- - Press (typically) `K` to show the man page for the instruction below the cursor.
- - Press `<leader>kd` to run the output `.prg` in Retrto Debugger.
-
 Shortcut:
  - Press ctrl+k to run KiskAssembler + Deugger at once
+
+Keys:
+ - Press `<leader>ka` to assemble it using KickAssembler.
+ - Press `<leader>kr` to run the output `.prg` in VICE (x64).
+ - Press `<leader>kd` to run the output `.prg` in Retrto Debugger.
+ - Press (typically) `K` to show the man page for the instruction below the cursor.
 
 <p align="center">
   <img src="media/example.png" alt="Kick'N'Vim Example" width="800"/>
@@ -94,7 +95,7 @@ Shortcut:
 * Java (for running KickAss.jar)
 * [VICE emulator](https://vice-emu.sourceforge.io/) with `x64` in your PATH or specified manually
 * [RetroDebugger](https://github.com/slajerek/RetroDebugger)
-* [man-db] - mandb
+* man-db package to provide `mandb`
 
 Lua script is installing manuals in a custom dir.
 Add path to your custom man path to `/etc/manpaths` or update env `MANPATH=`
