@@ -1,6 +1,6 @@
-
-
 # Kick'N'Vim
+
+it is a fork of [IstiCusi/kicknvim](https://github.com/IstiCusi/kicknvim) project
 
 > Assemble like it's 1985 – but with modern Neovim powers.
 
@@ -29,17 +29,23 @@
 ## 🛠 Installation (Lazy.nvim)
 
 ```lua
-{
-  "IstiCusi/kicknvim",
+return {
+  "grzybniak/kicknvim",
+  name = "kicknvim",
+  lazy = true,
   ft = "kickass",
   config = function()
     require("kicknvim").setup({
-      kickass_path = "/home/phonon/opt/kickassembler/KickAss.jar", -- or "kickass" if using a wrapper
-      kickman_man = false,
-      x64_path = "/usr/bin/x64", -- path to your VICE binary
+      kickass_path = "/Applications/KickAssembler/KickAss.jar", -- or "kickass" if using a wrapper
+      kickman_man = true,
+      x64_path = "/Applications/vice-arm64-gtk3-3.10/bin/x64sc", -- path to your VICE binary
+      -- install debugger from https://github.com/slajerek/RetroDebugger/releases
+      retro_debugger = "/Applications/Retro Debugger.app/Contents/MacOS/Retro Debugger", -- path to Retro Debugger
       keys = {
         assemble = "<leader>ka",
         run = "<leader>kr",
+        libinstall = "<leader>kl",
+        debug = "<leader>kd",
       },
     })
   end,
@@ -52,12 +58,13 @@ The plugin will only activate for buffers with `filetype=kickass`.
 
 ## ⚙ Configuration Options
 
-| Option         | Description                                  | Default                    |
-| -------------- | -------------------------------------------- | -------------------------- |
-| `kickass_path` | Path to `KickAss.jar` or a wrapper script    | `"kickass"`                |
-| `x64_path`     | Path to your VICE emulator binary (x64)      | `"x64"`                    |
-| `keys`         | Table with `assemble` and `run` key mappings | `<leader>ka`, `<leader>kr` |
-| `kickass_man`  | Installation or Deinstallation of man pages  | `false`                    |
+| Option           | Description                                  | Default                    |
+| ---------------- | -------------------------------------------- | -------------------------- |
+| `kickass_path`   | Path to `KickAss.jar` or a wrapper script    | `"kickass"`                |
+| `x64_path`       | Path to your VICE emulator binary (x64)      | `"x64"`                    |
+| `keys`           | Table with `assemble` and `run` key mappings | `<leader>ka`, `<leader>kr` |
+| `kickass_man`    | Installation or Deinstallation of man pages  | `false`                    |
+| `retro_debugger` | Path to your Retru Debugger installation     | `Retro Debugger`           |
 
 You can redefine keybindings, use your own emulator, or point to another version of KickAssembler if needed.
 
@@ -65,11 +72,15 @@ You can redefine keybindings, use your own emulator, or point to another version
 
 ## 🚀 Usage
 
-1. Open your `_k.asm` file. Make sure it triggers the filetype `kickass`.
-2. Press `<leader>ka` to assemble it using KickAssembler.
-3. Press `<leader>kr` to run the output `.prg` in VICE (x64).
-4. Press (typically) `K` to show the man page for the instruction below the cursor.
+Open your `_k.asm` file. Make sure it triggers the filetype `kickass`.
 
+ - Press `<leader>ka` to assemble it using KickAssembler.
+ - Press `<leader>kr` to run the output `.prg` in VICE (x64).
+ - Press (typically) `K` to show the man page for the instruction below the cursor.
+ - Press `<leader>kd` to run the output `.prg` in Retrto Debugger.
+
+Shortcut:
+ - Press ctrl+k to run KiskAssembler + Deugger at once
 
 <p align="center">
   <img src="media/example.png" alt="Kick'N'Vim Example" width="800"/>
@@ -82,6 +93,11 @@ You can redefine keybindings, use your own emulator, or point to another version
 * [KickAssembler 5.25](http://theweb.dk/KickAssembler/) (this version assumed as baseline)
 * Java (for running KickAss.jar)
 * [VICE emulator](https://vice-emu.sourceforge.io/) with `x64` in your PATH or specified manually
+* [RetroDebugger](https://github.com/slajerek/RetroDebugger)
+* [man-db] - mandb
+
+Lua script is installing manuals in a custom dir.
+Add path to your custom man path to `/etc/manpaths` or update env `MANPATH=`
 
 ---
 
@@ -91,9 +107,7 @@ We’re just getting started. Planned features:
 
 * 🧠 C64 memory layout visualization (zero page, heap, ROM/RAM boundaries)
 * 🎯 In-editor breakpoints without `.break` pseudo-op (via integration)
-* 🧵 Embedded VICE debugger (bidirectional communication with VICE)
 * 🛠 Project templating and helpers for BASIC loaders, IRQ setup, and more
-* 💬 Output preview for compiler errors and warnings in a floating window
 
 ---
 
